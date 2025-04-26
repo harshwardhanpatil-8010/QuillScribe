@@ -3,28 +3,41 @@ import User from "../../models/User.js";
 import bcrypt from "bcryptjs";
 
 export default async function handler(req, res) {
-  if (req.method !== "POST") return res.status(405).end();
-
-  try {
-    await connectDB();
+  if (req.method === 'POST') {
     const { username, email, password } = req.body;
 
-    const existingUser = await User.findOne({ email });
-    if (existingUser) return res.status(400).json({ message: "User already exists" });
+    try {
+      // Connect to the database
+      await connectDB();
 
-    const salt = bcrypt.genSaltSync(10);
-    const hashedPassword = bcrypt.hashSync(password, salt);
+      // Check if user already exists
+      const existingUser = await User.findOne({ email });
+      if (existingUser) {
+        return res.status(400).json({ message: "User already exists" });
+      }
 
-    const newUser = new User({
-      username,
-      email,
-      password: hashedPassword,
-    });
+      // Hash password before saving
+      const salt = bcrypt.genSaltSync(10);
+      const hashedPassword = bcrypt.hashSync(password, salt);
 
-    await newUser.save();
-    res.status(201).json({ message: "User created successfully ✅" });
-  } catch (error) {
-    res.status(500).json({ message: "Error registering user" });
+      // Create new user instance
+      const newUser = new User({
+        username,
+        email,
+        password: hashedPassword,
+      });
+
+      // Save new user to the database
+      await newUser.save();
+
+      // Send success response
+      return res.status(201).json({ message: "User registered successfully" });
+
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: "Internal server error" });
+    }
+  } else {
+    return res.status(405).json({ message: "Method not allowed" });
   }
 }
-
