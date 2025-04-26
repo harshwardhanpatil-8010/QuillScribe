@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const HeroSection = () => {
   return (
@@ -11,9 +12,9 @@ const HeroSection = () => {
           <p className="text-gray-600 text-lg md:text-xl">
             Read and share new perspectives on just about any topic. Everyone's welcome.
           </p>
-          <button className="bg-black text-white px-6 py-3 rounded-full hover:bg-gray-800 transition-colors">
+          <Link to="/register"className="bg-black text-white px-6 py-3 rounded-full hover:bg-gray-800 transition-colors">
             Start reading
-          </button>
+          </Link>
         </div>
         <div className="hidden md:block">
           <img 
