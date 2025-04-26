@@ -19,13 +19,14 @@ export default function Register() {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/auth/register`, formData);
+        await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/auth/register`, formData);
       toast.success("Registered successfully! Please login.");  // ✅ show success
       navigate("/login"); 
-    } catch (error) {
-      console.error(error);
-      toast.error(error.response?.data?.message || "Registration failed");
-    }
+    }catch (error) {
+        console.error(error.response?.data || error.message);
+        toast.error(error.response?.data?.message || "Registration failed");
+      }
+      
   };
 
   return (
