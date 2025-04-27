@@ -46,47 +46,65 @@ const FeaturedPosts = () => {
   };
 
   return (
-    <section className="py-16 bg-secondary">
-      <div className="container mx-auto px-4">
-        <h2 className="font-display text-4xl mb-12 text-center font-bold">Featured Stories</h2>
+    <section className="py-20 bg-gradient-to-b from-secondary to-white">
+      <div className="container mx-auto px-6">
+        <h2 className="font-display text-5xl mb-16 text-center font-bold text-gray-800 drop-shadow-sm">
+          Featured Stories
+        </h2>
         
-        <div className="flex gap-4 mb-8 max-w-2xl mx-auto">
+        <div className="flex gap-4 mb-12 max-w-2xl mx-auto">
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyPress={handleKeyPress}
             placeholder="Search posts..."
-            className="border p-3 rounded-lg flex-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="border-2 p-4 rounded-xl flex-1 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm"
           />
           <button 
             onClick={handleSearch}
             disabled={loading}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition duration-200 ease-in-out disabled:opacity-50"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl transition duration-300 ease-in-out disabled:opacity-50 font-semibold shadow-md hover:shadow-lg"
           >
             {loading ? 'Searching...' : 'Search'}
           </button>
         </div>
 
         {loading ? (
-          <div className="text-center py-8">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <div className="text-center py-12">
+            <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-600 mx-auto"></div>
           </div>
         ) : posts.length === 0 ? (
-          <div className="text-center text-gray-600 py-8">
+          <div className="text-center text-gray-600 py-12 text-xl">
             No posts found
           </div>
         ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {posts.map(post => (
-              <Link to={`/post/${post._id}`} key={post._id} className="transform hover:scale-105 transition duration-200">
-                <div className="p-6 border rounded-lg shadow-sm hover:shadow-md bg-white">
-                {post.imageUrl && (
-                   <img src={post.imageUrl} alt="Post" className="w-full h-auto rounded-md" />
-                            )}
-
-                  <h2 className="text-xl font-semibold mb-3 text-gray-800">{post.title}</h2>
-                  <p className="text-gray-600 line-clamp-3">{post.content}</p>
-                  <div className="mt-4 text-blue-600 hover:text-blue-700">Read more →</div>
+              <Link to={`/post/${post._id}`} key={post._id} className="transform hover:scale-102 transition duration-300">
+                <div className="h-full p-6 border rounded-xl shadow-md hover:shadow-xl bg-white flex flex-col">
+                  {post.imageUrl && (
+                    <div className="aspect-w-16 aspect-h-9 mb-4">
+                      <img 
+                        src={post.imageUrl} 
+                        alt={post.title}
+                        className="w-full h-48 object-cover rounded-lg"
+                      />
+                    </div>
+                  )}
+                  <h2 className="text-2xl font-bold mb-4 text-gray-800 line-clamp-2">
+                    {post.title}
+                  </h2>
+                  <p className="text-gray-600 line-clamp-3 flex-grow mb-4">
+                    {post.content}
+                  </p>
+                  <div className="mt-auto">
+                    <span className="inline-flex items-center text-blue-600 hover:text-blue-700 font-semibold">
+                      Read more 
+                      <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"/>
+                      </svg>
+                    </span>
+                  </div>
                 </div>
               </Link>
             ))}

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import Navbar from "../components/Navbar";
+
 import axios from "axios";
 
 export default function CreatePost() {
@@ -11,13 +11,22 @@ export default function CreatePost() {
     content: ""
   });
   const [image, setImage] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(null);
 
   const handleChange = (e) => {
     setPost({...post, [e.target.name]: e.target.value});
   };
 
   const handleImageChange = (e) => {
-    setImage(e.target.files[0]);
+    const file = e.target.files[0];
+    setImage(file);
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewUrl(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -45,70 +54,91 @@ export default function CreatePost() {
   };
 
   return (
-    <>
-      <Navbar />
-      <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-md">
-          <h1 className="text-3xl font-extrabold text-gray-900 text-center mb-8">
-            Create New Post
-          </h1>
-          <form onSubmit={handleSubmit} className="space-y-6" encType="multipart/form-data">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+
+      <div className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
+          <div className="bg-blue-600 px-8 py-6">
+            <h1 className="text-3xl font-bold text-white text-center">
+              Create New Post
+            </h1>
+          </div>
+          
+          <form onSubmit={handleSubmit} className="p-8 space-y-8" encType="multipart/form-data">
             <div>
-              <label htmlFor="title" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="title" className="block text-lg font-semibold text-gray-800 mb-2">
                 Title
               </label>
               <input
                 id="title"
                 name="title"
                 type="text"
-                placeholder="Enter your post title"
+                placeholder="Enter an engaging title..."
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-3 border"
+                className="w-full rounded-lg border-2 border-gray-200 px-4 py-3 focus:border-blue-500 focus:ring focus:ring-blue-200 transition duration-200 text-gray-700"
                 required
               />
             </div>
+
             <div>
-              <label htmlFor="content" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="content" className="block text-lg font-semibold text-gray-800 mb-2">
                 Content
               </label>
               <textarea
                 id="content"
                 name="content"
-                placeholder="Write your post content here..."
+                placeholder="Share your thoughts..."
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-3 border h-64 resize-none"
+                className="w-full rounded-lg border-2 border-gray-200 px-4 py-3 focus:border-blue-500 focus:ring focus:ring-blue-200 transition duration-200 h-72 resize-none text-gray-700"
                 required
               ></textarea>
             </div>
+
             <div>
-              <label htmlFor="image" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="image" className="block text-lg font-semibold text-gray-800 mb-2">
                 Upload Image
               </label>
-              <input
-                id="image"
-                name="image"
-                type="file"
-                accept="image/*"
-                onChange={handleImageChange}
-                className="mt-1 block w-full text-sm text-gray-500
-                  file:mr-4 file:py-2 file:px-4
-                  file:rounded-full file:border-0
-                  file:text-sm file:font-semibold
-                  file:bg-blue-50 file:text-blue-700
-                  hover:file:bg-blue-100"
-              />
+              <div className="mt-2 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-200 border-dashed rounded-lg hover:border-blue-400 transition-colors duration-200">
+                <div className="space-y-2 text-center">
+                  <div className="flex flex-col items-center">
+                    {previewUrl ? (
+                      <img src={previewUrl} alt="Preview" className="h-40 w-auto mb-4 rounded-lg" />
+                    ) : (
+                      <svg className="h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    )}
+                    <input
+                      id="image"
+                      name="image"
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageChange}
+                      className="hidden"
+                    />
+                    <label
+                      htmlFor="image"
+                      className="cursor-pointer text-sm text-blue-600 hover:text-blue-700"
+                    >
+                      <span>Upload a file</span>
+                      <p className="text-xs text-gray-500 mt-1">PNG, JPG, GIF up to 10MB</p>
+                    </label>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="flex items-center justify-end gap-4">
+
+            <div className="flex items-center justify-end gap-4 pt-4">
               <button
                 type="button"
                 onClick={() => navigate("/")}
-                className="inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                className="px-6 py-3 rounded-lg text-gray-700 bg-gray-100 hover:bg-gray-200 font-medium transition duration-200"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="inline-flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200"
+                className="px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium transition duration-200 transform hover:scale-105"
               >
                 Publish Post
               </button>
@@ -116,6 +146,6 @@ export default function CreatePost() {
           </form>
         </div>
       </div>
-    </>
+    </div>
   );
 }

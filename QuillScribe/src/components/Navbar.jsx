@@ -12,26 +12,26 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 w-full bg-white/90 backdrop-blur-md z-50 border-b shadow-sm">
-      <div className="container mx-auto px-6 h-20 flex items-center justify-between">
+    <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-lg z-50 border-b border-gray-200 shadow-lg">
+      <div className="container mx-auto px-8 h-24 flex items-center justify-between">
         <a 
           href="/" 
-          className="font-sans text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent hover:opacity-80 transition-opacity"
+          className="font-sans text-3xl font-extrabold bg-gradient-to-r from-purple-600 via-blue-500 to-indigo-600 bg-clip-text text-transparent hover:opacity-90 transition-all duration-300 ease-in-out"
         >
           QuillScribe
         </a>
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-10">
           {token ? (
             <>
               <Link 
                 to="/create-post" 
-                className="text-gray-700 hover:text-purple-600 font-medium transition-colors"
+                className="text-gray-700 hover:text-purple-600 font-semibold transition-all duration-300 ease-in-out hover:scale-105"
               >
                 Create Post
               </Link>
               <Button 
                 onClick={handleLogout}
-                className="bg-red-500 text-white hover:bg-red-600 rounded-full px-6 py-2 transition-colors"
+                className="bg-gradient-to-r from-red-500 to-red-600 text-white hover:from-red-600 hover:to-red-700 rounded-full px-8 py-2.5 font-semibold shadow-md hover:shadow-lg transition-all duration-300 ease-in-out hover:scale-105"
               >
                 Logout
               </Button>
@@ -40,20 +40,20 @@ const Navbar = () => {
             <>
               <Link 
                 to="/login" 
-                className="text-gray-700 hover:text-purple-600 font-medium transition-colors"
+                className="text-gray-700 hover:text-purple-600 font-semibold transition-all duration-300 ease-in-out hover:scale-105"
               >
                 Login
               </Link>
               <Link 
                 to="/register" 
-                className="bg-purple-600 text-white hover:bg-purple-700 rounded-full px-6 py-2 transition-colors"
+                className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white hover:from-purple-700 hover:to-indigo-700 rounded-full px-8 py-2.5 font-semibold shadow-md hover:shadow-lg transition-all duration-300 ease-in-out hover:scale-105"
               >
                 Register
               </Link>
             </>
           )}
-          <Button variant="ghost" size="icon" className="md:hidden">
-            <Menu className="h-5 w-5" />
+          <Button variant="ghost" size="icon" className="md:hidden hover:bg-gray-100 transition-colors duration-300">
+            <Menu className="h-6 w-6" />
           </Button>
         </div>
       </div>
