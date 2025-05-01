@@ -46,7 +46,7 @@ const FeaturedPosts = () => {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-b from-secondary to-white">
+    <section className="py-30 bg-gradient-to-b from-secondary to-white">
       <div className="container mx-auto px-6">
         <h2 className="font-display text-5xl mb-16 text-center font-bold text-gray-800 drop-shadow-sm">
           Featured Stories

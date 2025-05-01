@@ -9,12 +9,14 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/auth/login`, {
         email,
-        password
+        password,
+   
       });
       localStorage.setItem("token", res.data.token);
       toast.success("Login successful!");
@@ -37,7 +39,10 @@ export default function Login() {
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
             <form onSubmit={handleLogin} className="space-y-6">
+           
+    
               <div>
+             
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                   Email address
                 </label>

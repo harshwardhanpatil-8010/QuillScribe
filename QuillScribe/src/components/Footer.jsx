@@ -1,5 +1,6 @@
 
 import { Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -24,9 +25,9 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold mb-4">Legal</h4>
             <ul className="space-y-2 text-sm">
-              <li><a href="#" className="opacity-80 hover:opacity-100">Privacy Policy</a></li>
-              <li><a href="#" className="opacity-80 hover:opacity-100">Terms of Service</a></li>
-              <li><a href="#" className="opacity-80 hover:opacity-100">Cookie Policy</a></li>
+              <li><Link to="/privacy-policy" className="opacity-80 hover:opacity-100">Privacy Policy</Link></li>
+              <li><Link to="/termsofuse" className="opacity-80 hover:opacity-100">Terms of Service</Link></li>
+              <li><Link to="/cookie-policy" className="opacity-80 hover:opacity-100">Cookie Policy</Link></li>
             </ul>
           </div>
           <div>

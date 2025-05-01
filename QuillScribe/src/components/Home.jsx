@@ -14,9 +14,10 @@ export default function Home() {
       <Navbar />
       <main>
         <HeroSection/>
+        </main>
         <FeaturedPosts/>
         <Newsletter/>
-      </main>
+    
       <Footer />
     </div>
     </>
