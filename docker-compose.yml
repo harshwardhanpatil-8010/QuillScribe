@@ -1,0 +1,9 @@
+# PreciOps AI: Unable to determine the services required for your application.
+# This is a placeholder docker-compose.yml. Please modify it to fit your needs.
+# --- Example for a single service ---
+# version: '3.8'
+# services:
+#   app:
+#     build: .
+#     ports:
+#       - "8080:80"
